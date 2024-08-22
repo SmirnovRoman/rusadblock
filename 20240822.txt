@@ -1,0 +1,99 @@
+#/etc/hosts - for blocking ad networks , run http server on localhost to monitor activity... 
+
+127.0.0.1 mc.yandex.ru
+127.0.0.1 yandex.ru
+127.0.0.1 ads.adfox.ru
+127.0.0.1 google-analytics.com
+127.0.0.1 googletagmanager.com
+127.0.0.1 www.googletagmanager.com
+127.0.0.1 webvisor.org
+127.0.0.1 mc.webvisor.org
+127.0.0.1 js-agent.newrelic.com
+127.0.0.1 doubleclick.net
+127.0.0.1 ad.mail.ru
+127.0.0.1 a.ria.ru
+127.0.0.1 uaas.yandex.ru
+127.0.0.1 googletagmanager.com
+127.0.0.1 smi2.ru
+127.0.0.1 tiktok.com
+127.0.0.1 www.tns-counter.ru
+127.0.0.1 top-fwz1.mail.ru
+127.0.0.1 infox.sg
+127.0.0.1 stats.g.doubleclick.net
+127.0.0.1 abt.s3.yandex.net
+127.0.0.1 tns-counter.ru
+127.0.0.1 st.top100.ru
+127.0.0.1 top100.ru
+127.0.0.1 kraken.rambler.ru
+127.0.0.1 webvisor.org
+127.0.0.1 mc.webvisor.org
+127.0.0.1 rnet.plus
+127.0.0.1 api.rnet.plus
+127.0.0.1 cdn.uxfeedback.ru
+127.0.0.1 widget-api.uxfeedback.ru
+127.0.0.1 tube.buzzoda.com
+127.0.0.1 buzzoda.com
+127.0.0.1 ad.adriver.ru
+127.0.0.1 adriver.ru
+127.0.0.1 api.mindbox.ru
+127.0.0.1 mindbox.ru
+127.0.0.1 web-static.mindbox.ru
+127.0.0.1 target.smi2.net
+
+#mash
+127.0.0.1 24smi.net
+127.0.0.1 data.24smi.net
+127.0.0.1 player-metrics.kinescope.io
+127.0.0.1 img.24smi.net
+127.0.0.1 jsn.24smi.net
+127.0.0.1 news.mediametrics.ru
+
+
+127.0.0.1 mradx.net
+127.0.0.1 m.mradx.net
+127.0.0.1 r.mradx.net
+
+127.0.0.1 rb.infox.sg
+127.0.0.1 cdn.onesignal.com
+127.0.0.1 onesignal.com
+
+127.0.0.1 grouple.co
+127.0.0.1 bs-dante.ru
+127.0.0.1 static.bs-dante.ru
+
+127.0.0.1 giraff.io
+127.0.0.1 a.giraff.io
+127.0.0.1 code.giraff.io
+127.0.0.1 www.giraff.io
+127.0.0.1 giraff.io
+127.0.0.1 data.giraff.io
+127.0.0.1 ads.betweendigital.com
+
+
+127.0.0.1 ssp.adriver.ru
+127.0.0.1 abt.s3.yandex.net
+
+127.0.0.1 ssp.rambler.ru
+127.0.0.1 vp.rambler.ru
+127.0.0.1 rcmjs.rambler.ru
+127.0.0.1 zoomdecorate.rambler.ru
+127.0.0.1 cp.pushwoosh.com
+
+#2GiS
+127.0.0.1 ext.clickstream.sberbank.ru
+
+#MK
+127.0.0.1 ad.mail.ru
+127.0.0.1 a.utraff.com
+127.0.0.1 dm.hybrid.ai
+127.0.0.1 ev.adriver.ru
+127.0.0.1 sync.bumlam.com
+127.0.0.1 match.new-programmatic.com
+127.0.0.1 ssp.al-adtech.com
+127.0.0.1 cmr.bidderstack.com
+127.0.0.1 stats2.videonow.ru
+127.0.0.1 www.acint.net
+127.0.0.1 prodmp.ru
+127.0.0.1 px.adhigh.net
+127.0.0.1 adx.com.ru
+127.0.0.1 bid.adx.com.ru
