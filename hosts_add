@@ -97,3 +97,20 @@
 127.0.0.1 px.adhigh.net
 127.0.0.1 adx.com.ru
 127.0.0.1 bid.adx.com.ru
+
+127.0.0.1 cdn.jsdelivr.net
+127.0.0.1 relap.io
+127.0.0.1 s.relap.io
+127.0.0.1 statmedia.ru
+127.0.0.1 bidder.skcrtxr.com
+127.0.0.1 solta.io
+127.0.0.1 sync.adspend.space
+
+
+
+# АИФ
+127.0.0.1 notsy.io
+127.0.0.1 cdn-b.notsy.io
+127.0.0.1 cdn-app.sberdevices.ru
+127.0.0.1 tag.digitaltarget.ru
+
