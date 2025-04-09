@@ -1,3 +1,13 @@
+127.0.0.1 localhost
+127.0.1.1 gpc4
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
 #/etc/hosts - for blocking ad networks , run http server on localhost to monitor activity... 
 
 127.0.0.1 mc.yandex.ru
@@ -114,3 +124,42 @@
 127.0.0.1 cdn-app.sberdevices.ru
 127.0.0.1 tag.digitaltarget.ru
 
+
+# mail.ru - 2025.03.02
+127.0.0.1 log.dzen.ru
+127.0.0.1 stat.radar.imgsmail.ru
+127.0.0.1 r3.mail.ru
+127.0.0.1 r.mradx.net
+127.0.0.1 ad.mail.ru
+127.0.0.1 rs.mail.ru
+127.0.0.1 top-fwz1.mail.ru
+127.0.0.1 xray.mail.ru
+
+127.0.0.1 counter.yadro.ru
+127.0.0.1 mc.yandex.md
+127.0.0.1 mc.yandex.ru
+
+127.0.0.1 ssl.google-analytics.com
+
+#RT
+127.0.0.1 direct-events-collector.spot.im
+127.0.0.1 setka.news
+127.0.0.1 rtstat.api.rt.com
+127.0.0.1 rum-static.pingdom.net
+127.0.0.1 news.smi2.ru
+127.0.0.1 sb.scorecardresearch.com
+127.0.0.1 mf.b37mrtl.ru
+127.0.0.1 static.smi2.net
+127.0.0.1 publisher-assets.spot.im
+127.0.0.1 metrics-logger.spot.im
+127.0.0.1 pix.spot.im
+
+#mk
+127.0.0.1 stats.viqeo.tv
+127.0.0.1 metrics.viqeo.tv
+127.0.0.1 content.adriver.ru
+127.0.0.1 skcrtxr.com
+127.0.0.1 cdn.skcrtxr.com
+127.0.0.1 rpc.skcrtxr.com
+
+127.0.0.1 widget.svk-native.ru
