@@ -8,10 +8,11 @@
     
     todo dns monitor:
     tcpdump -l port 53
+    
 */
 
 if(@$argv[1]=="install"){
-    exec("chmod +x ./tcpmon.php"):
+    exec("chmod +x ./tcpmon.php");
     exec("cp ./tcpmon.php /usr/bin/");
     file_put_contents("/etc/systemd/system/monitor.service",
 "[Unit]
