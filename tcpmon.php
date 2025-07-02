@@ -2,17 +2,21 @@
 <?php
 
 /*
-    @RSmirnov 
-    2025.07.01
-    simple tcpmonitor 
+    cp ./tcpmon.php /usr/bin/
+    cp ./monitor.service /etc/systemd/system/
+    systemctl daemon-reload
+    systemctl enable monitor
+    systemctl start monitor
     
     todo dns monitor:
     tcpdump -l port 53
-    
 */
 
+if(@$argv[1]=="stop"){
+    exec("systemctl stop monitor");
+    exit(0);
+}
 if(@$argv[1]=="install"){
-    exec("chmod +x ./tcpmon.php");
     exec("cp ./tcpmon.php /usr/bin/");
     file_put_contents("/etc/systemd/system/monitor.service",
 "[Unit]
@@ -21,17 +25,19 @@ After=network.target
 [Service]
 User=root
 Restart=on-failure
-ExecStart=/usr/bin/tcpmon.php 1> /var/lib/tcpmon/log1 2> /var/lib/tcpmon/log2 
+ExecStart=/usr/bin/tcpmon.php 1> /var/lib/tcpmon/log1 2> /var/lib/tcpmon/log2
 
 [Install]
 WantedBy=network.target
 ");
-
+    exec("systemctl stop monitor");
     exec("systemctl daemon-reload");
     exec("systemctl enable monitor");
     exec("systemctl start monitor");
     return;
 }
+
+$sessionstart=date("YmdHi");
 
 $dir="/var/lib/tcpmon";
 @mkdir($dir);
@@ -44,6 +50,7 @@ $previps=array();
 
 $db->exec("CREATE TABLE IF NOT EXISTS tcp_monitor (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sessionstart INTEGER,
     local_address TEXT,
     remote_address TEXT,
     local_hostname TEXT,
@@ -56,12 +63,14 @@ $db->exec("CREATE TABLE IF NOT EXISTS tcp_monitor (
     ts INTEGER,
     d2 integer,
     host TEXT,
-    tcpstatus TEXT
+    tcpstatus TEXT,
+    raw TEXT
 )");
 
 
 $db->exec("CREATE TABLE IF NOT EXISTS tcp_newconnections (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sessionstart INTEGER,
     local_address TEXT,
     remote_address TEXT,
     local_hostname TEXT,
@@ -74,7 +83,8 @@ $db->exec("CREATE TABLE IF NOT EXISTS tcp_newconnections (
     ts INTEGER,
     d2 integer,
     host TEXT,
-    tcpstatus TEXT
+    tcpstatus TEXT,
+    raw TEXT
 )");
 
 
@@ -110,7 +120,7 @@ function hexToIp($hex) {
 
 // Функция для парсинга файла /proc/net/tcp
 function parseTcpFile($db) {
-    global $hn,$previps;
+    global $hn,$previps,$sessionstart;
     
     $previps1=array();
     
@@ -125,6 +135,9 @@ function parseTcpFile($db) {
             $fields = preg_split('/\s+/', trim($line));
             
             if (count($fields) < 9) continue;
+
+
+	    $raw=$line;
 
             $localAddress = $fields[1];
             $remoteAddress = $fields[2];
@@ -159,7 +172,7 @@ function parseTcpFile($db) {
                 $previps[]=$remoteIp;
                 
                 
-                $stmt = $db->prepare("INSERT INTO tcp_newconnections (local_address, remote_address, local_hostname, remote_hostname, local_port, remote_port, pid, pname, pcmd, ts, d2, host, tcpstatus) VALUES (:local_address, :remote_address, :local_hostname, :remote_hostname, :local_port, :remote_port, :pid, :pname, :pcmd, :ts, :d2, :host, :tcpstatus)");
+                $stmt = $db->prepare("INSERT INTO tcp_newconnections (local_address, remote_address, local_hostname, remote_hostname, local_port, remote_port, pid, pname, pcmd, ts, d2, host, tcpstatus, sessionstart, raw) VALUES (:local_address, :remote_address, :local_hostname, :remote_hostname, :local_port, :remote_port, :pid, :pname, :pcmd, :ts, :d2, :host, :tcpstatus,:sessionstart,:raw)");
             $stmt->bindValue(':local_address', $localIp, SQLITE3_TEXT);
             $stmt->bindValue(':remote_address', $remoteIp, SQLITE3_TEXT);
             $stmt->bindValue(':local_hostname', $localHostname, SQLITE3_TEXT);
@@ -171,7 +184,9 @@ function parseTcpFile($db) {
             $stmt->bindValue(':pname', @$t[0], SQLITE3_TEXT);
             $stmt->bindValue(':ts', time(), SQLITE3_INTEGER);
             $stmt->bindValue(':d2', date("Ymd"), SQLITE3_INTEGER);
+            $stmt->bindValue(':sessionstart', $sessionstart, SQLITE3_INTEGER);
             $stmt->bindValue(':host', $hn, SQLITE3_TEXT);
+            $stmt->bindValue(':raw', $raw, SQLITE3_TEXT);
     	    $stmt->bindValue(':tcpstatus', $tcpstatus, SQLITE3_TEXT);
             $stmt->execute();
             }
@@ -179,7 +194,7 @@ function parseTcpFile($db) {
 
 
 
-            $stmt = $db->prepare("INSERT INTO tcp_monitor (local_address, remote_address, local_hostname, remote_hostname, local_port, remote_port, pid, pname, pcmd, ts, d2, host, tcpstatus) VALUES (:local_address, :remote_address, :local_hostname, :remote_hostname, :local_port, :remote_port, :pid, :pname, :pcmd, :ts, :d2, :host, :tcpstatus)");
+            $stmt = $db->prepare("INSERT INTO tcp_monitor (local_address, remote_address, local_hostname, remote_hostname, local_port, remote_port, pid, pname, pcmd, ts, d2, host, tcpstatus, sessionstart,raw) VALUES (:local_address, :remote_address, :local_hostname, :remote_hostname, :local_port, :remote_port, :pid, :pname, :pcmd, :ts, :d2, :host, :tcpstatus, :sessionstart, :raw)");
             $stmt->bindValue(':local_address', $localIp, SQLITE3_TEXT);
             $stmt->bindValue(':remote_address', $remoteIp, SQLITE3_TEXT);
             $stmt->bindValue(':local_hostname', $localHostname, SQLITE3_TEXT);
@@ -190,9 +205,11 @@ function parseTcpFile($db) {
             $stmt->bindValue(':pcmd', $pname, SQLITE3_TEXT);
             $stmt->bindValue(':pname', @$t[0], SQLITE3_TEXT);
             $stmt->bindValue(':ts', time(), SQLITE3_INTEGER);
+            $stmt->bindValue(':sessionstart', $sessionstart, SQLITE3_INTEGER);
             $stmt->bindValue(':d2', date("Ymd"), SQLITE3_INTEGER);
             $stmt->bindValue(':host', $hn, SQLITE3_TEXT);
     	    $stmt->bindValue(':tcpstatus', $tcpstatus, SQLITE3_TEXT);
+    	    $stmt->bindValue(':raw', $raw, SQLITE3_TEXT);
             $stmt->execute();
         }
         
@@ -270,9 +287,17 @@ function findPidByInode($inode) {
 }
 
 
+$file = '/proc/net/tcp';
 while (true) {
+
+/*
+$hash = hash_file("crc32",$file);
+while ($hash === hash_file("crc32",$file)){
+  usleep(100000);
+}
+*/
     parseTcpFile($db);
-    sleep(1); 
+    sleep(1);  
 }
 
 ?>

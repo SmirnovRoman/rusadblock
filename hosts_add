@@ -1,10 +1,5 @@
 127.0.0.1 localhost
-127.0.1.1 gpc4
 
-# The following lines are desirable for IPv6 capable hosts
-::1     ip6-localhost ip6-loopback
-fe00::0 ip6-localnet
-ff00::0 ip6-mcastprefix
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
@@ -163,10 +158,8 @@ ff02::2 ip6-allrouters
 127.0.0.1 rpc.skcrtxr.com
 
 127.0.0.1 widget.svk-native.ru
-
-
-# 2025.05.31 
 127.0.0.1 clcl.dzen.ru
+
 127.0.0.1 vkvsd160.okcdn.ru
 
 
@@ -196,3 +189,27 @@ ff02::2 ip6-allrouters
 127.0.0.1 play.google.com
 127.0.0.1 optimizationguide-pa.googleapis.com
 127.0.0.1 plugins.remmina.org
+
+
+#misc 
+127.0.0.1 push.services.mozilla.com
+127.0.0.1 support.mozilla.org
+127.0.0.1 lenta.ru
+127.0.0.1 contile.services.mozilla.com
+127.0.0.1 pix.bumlam.com
+127.0.0.1 weborama-tech.ru
+127.0.0.1 dmg.digitaltarget.ru
+127.0.0.1 fcpe.beeline.ru
+
+127.0.0.1 ads.people-group.net
+127.0.0.1 telemetry.jivo.ru
+127.0.0.1 telephony.jivosite.com
+
+127.0.0.1 prod.remote-settings.prod.webservices.mozgcp.net
+127.0.0.1 firefox.settings.services.mozilla.com
+127.0.0.1 cm.a.mts.ru
+127.0.0.1 vigo.ru
+
+127.0.0.1 api.vigo.one
+127.0.0.1 detectportal.firefox.com
+127.0.0.1 example.org
