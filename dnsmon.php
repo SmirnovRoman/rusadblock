@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?php
+date_default_timezone_set('Europe/Moscow');
 
 // Команда для выполнения
 $command = 'tcpdump -i any -n -s 1500 -l port 53'; // -l для линейного вывода

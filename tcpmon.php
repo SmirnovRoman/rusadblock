@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-
+date_default_timezone_set('Europe/Moscow');
 /*
     cp ./tcpmon.php /usr/bin/
     cp ./monitor.service /etc/systemd/system/

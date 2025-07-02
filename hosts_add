@@ -1,5 +1,7 @@
 127.0.0.1 localhost
 
+
+::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
@@ -211,5 +213,11 @@ ff02::2 ip6-allrouters
 127.0.0.1 vigo.ru
 
 127.0.0.1 api.vigo.one
-127.0.0.1 detectportal.firefox.com
-127.0.0.1 example.org
+127.0.0.1 android.clients.google.com
+127.0.0.1 mc.prod.ads.prod.webservices.mozgcp.net
+127.0.0.1 detectportal.prod.mozaws.net
+127.0.0.1 android.l.google.com
+127.0.0.1 spocs.getpocket.com
+127.0.0.1 as207353.asbr.router
+127.0.0.1 safezone.cc
+
