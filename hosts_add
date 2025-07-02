@@ -169,6 +169,8 @@ ff02::2 ip6-allrouters
 127.0.0.1 clcl.dzen.ru
 127.0.0.1 vkvsd160.okcdn.ru
 
+
+#regnum
 127.0.0.1 logs.adplay.ru
 127.0.0.1 w.rulive.ru
 127.0.0.1 rtb.adplay.ru
@@ -177,3 +179,20 @@ ff02::2 ip6-allrouters
 127.0.0.1 informer.yandex.ru
 127.0.0.1 widget.adplay.ru
 127.0.0.1 widget.sparrow.ru
+
+127.0.0.1 pikabu.ru
+
+#tsg
+127.0.0.1 storage.mds.yandex.net
+127.0.0.1 sun1-83.userapi.com
+127.0.0.1 an.yandex.ru
+
+127.0.0.1 ctx.weborama.com
+127.0.0.1 cstatic.weborama-tech.ru
+127.0.0.1 weborama.io
+
+#remina
+127.0.0.1 info.remmina.org
+127.0.0.1 play.google.com
+127.0.0.1 optimizationguide-pa.googleapis.com
+127.0.0.1 plugins.remmina.org
