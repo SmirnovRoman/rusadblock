@@ -1,7 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
 
-if (@isset($_GET["data"])) {
+
+if (@isset($_GET["data"]) || @isset($_GET["ip"])) {
 
     class MyDB extends SQLite3
     {
@@ -19,21 +20,37 @@ if (@isset($_GET["data"])) {
         }
     }
 
+    if(@$_GET["ip"]!=""){
+    $db = new MyDB();
+        @$db->query('PRAGMA journal_mode=WAL;');
+    $result = $db->query('SELECT ts, * FROM tcp_monitor WHERE remote_address = "'.$_GET["ip"].'" ORDER BY ts DESC LIMIT 0,10');
+    echo "<h2>".$_GET["ip"]."</h2>";
+        echo "<table >";
+    while ($a = $result->fetchArray()) {
+	echo "<tr ><td><nobr><small>" . date("Ymd H:i", $a["ts"]) . "</small></td><td>" . $a["pname"] . "</td><td>" . $a["remote_hostname"] . "</td><td><A target='_blank' href='mon.php?ip=".urlencode($a["remote_address"])."'>" . $a["remote_address"] . "</a></td></tr>";
+    }
+        echo "</table>";
+        return;
+    }
+
+
     echo date("Ymd H:i:s") . " , dns db size: " . (fs("/var/lib/tcpmon/dns_connections.db")) . " , tcp db size: " . (fs("/var/lib/tcpmon/tcp_connections.db")) . " <br>";
 
     echo "<table width=100%><tr><td width=50% valign=top><b>TCP</b><hr size=1>";
 
     $db = new MyDB();
+    @$db->query('PRAGMA journal_mode=WAL;');
     $result = $db->query('SELECT ts, * FROM tcp_newconnections ORDER BY ts DESC LIMIT 0,50');
     echo "<table id='tcpTable'>";
     while ($a = $result->fetchArray()) {
-        echo "<tr onclick='toggleRow(this)'><td><nobr><small>" . date("Ymd H:i", $a["ts"]) . "</small></td><td>" . $a["pname"] . "</td><td>" . $a["remote_hostname"] . "</td><td>" . $a["remote_address"] . "</td></tr>";
+        echo "<tr onclick='toggleRow(this)'><td><nobr><small>" . date("Ymd H:i", $a["ts"]) . "</small></td><td>" . $a["pname"] . "</td><td>" . $a["remote_hostname"] . "</td><td><A target='_blank' href='?ip=".urlencode($a["remote_address"])."'>" . $a["remote_address"] . "</a></td></tr>";
     }
     echo "</table>";
 
     echo "</td><td valign=top><b>DNS</b><hr size=1>";
 
     $db = new MyDB2();
+    @$db->query('PRAGMA journal_mode=WAL;');
     $result = $db->query('SELECT ts, * FROM dns_monitor ORDER BY ts DESC LIMIT 0,50');
     echo "<table id='dnsTable'>";
     while ($a = $result->fetchArray()) {
@@ -87,7 +104,7 @@ if (isset($_POST['save'])) {
 
     async function fetchData() {
         try {
-            const response = await fetch('http://localhost/mon.php?data=1'); // Замените на Ваш URL
+            const response = await fetch('/mon.php?data=1'); // Замените на Ваш URL
             if (!response.ok) {
                 throw new Error('Сеть ответила с ошибкой');
             }
@@ -110,7 +127,7 @@ if (isset($_POST['save'])) {
             formData.append('save', true);
             formData.append('selectedRows', rowsData);
 
-            fetch('http://localhost/mon.php', {
+            fetch('/mon.php', {
                 method: 'POST',
                 body: formData
             })

@@ -41,6 +41,7 @@ $dir="/var/lib/tcpmon";
 $dbFile = $dir.'/dns_connections.db';
 
 $db = new SQLite3($dbFile);
+@$db->query('PRAGMA journal_mode=WAL;');
 
 $hn=gethostname();
 $previps=array();

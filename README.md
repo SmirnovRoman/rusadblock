@@ -14,3 +14,10 @@ web out two tables - mon.php ( with js autorefresh )
 todo: 
 add buttons to send to iptables block list and to hosts 
 
+--------
+
+DNS servers
+
+https://github.com/hagezi/dns-blocklists?tab=readme-ov-file
+https://curatedhub.github.io/CuratedHub/lists/domain_blacklists/
+https://github.com/xRuffKez?tab=repositories
